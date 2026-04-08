@@ -1,0 +1,141 @@
+**NPI Civil Engineering Platform – Product Requirements Document (PRD)**  
+**Version:** 1.0  
+**Date:** 08 April 2026  
+**Product Name:** NPI Civil Engineering WebApp  
+**Prepared for:** Netts Planning and Infrastructure (NPI) Engineering Staff  
+**Purpose:** Single, intuitive web workspace for all daily civil engineering duties – project creation, feasibility, structural, geotechnical, hydraulics/water systems, project management, tenders, and final deliverables.
+
+### 1. Executive Summary  
+The NPI Civil Engineering WebApp is a secure, AI-powered internal platform that mirrors NPI’s existing engineering-firm structure. Staff open a project, input site data on dedicated discipline pages, and the system coordinates specialist AI agents to produce calculations, reports, Gantt charts, and tender documents. All outputs export directly as branded Word, Excel, or PDF files.  
+
+Only **one front-facing AI coordinator** is visible to users; eight specialist agents run in the background. The interface is deliberately clean: the home screen shows **only active projects and what has been added**. Discipline pages are reached via simple in-project navigation and never feel cramped.  
+
+**Core value for NPI staff:**  
+- Reduce manual calculation and report drafting time by >70 %.  
+- Automatic data flow between disciplines (e.g., rainfall data in Hydraulics instantly updates Gantt risks and Structural loads).  
+- Zero loss of information – every upload, agent output, and approval is audited and versioned.  
+- Full compliance with NPI branding and regulatory formats.
+
+### 2. Business Objectives  
+- Enable every NPI engineer to complete feasibility, structural, geotechnical, hydraulics, and tender tasks within the same webapp.  
+- Replace fragmented tools (Excel, separate software, email reports) with one source of truth.  
+- Support project management with live Gantt charts and risk registers.  
+- Scale from current feasibility agents to a complete AI engineering workflow.  
+- Keep daily usage intuitive so staff focus on engineering judgment, not software navigation.
+
+### 3. User Personas (NPI Staff)  
+- **Project Engineer / Senior Engineer** (primary user): Creates projects, inputs data, reviews agent outputs, approves deliverables.  
+- **Discipline Specialist** (Structural, Geotech, Hydraulics): Works mainly inside one discipline page, uploads raw data, checks agent calculations.  
+- **Site / Field Staff**: Uploads photos, logs, rainfall data directly into the relevant page via mobile-friendly interface.  
+- **Tender / Commercial Lead**: Uses Tenders page to generate bid packages.  
+- **Management / Director**: Views Project Overview, approves final exports, monitors overall portfolio on Dashboard.
+
+### 4. Functional Requirements  
+
+#### 4.1 Core Navigation & Shell  
+- **Home/Dashboard** (only screen on login):  
+  - Grid of active projects with cards showing name, client, phase, % complete, next deadline, and “What’s been added” summary (e.g., “Hydraulics: Rainfall data processed | Geotech report draft ready”).  
+  - “New Project” wizard button.  
+  - Minimal top bar only (logo, project selector, search, notifications, user avatar).  
+
+- **Inside Any Project** (context bar always visible):  
+  - Collapsible left sidebar with:  
+    - Project Overview  
+    - Project Management (Gantt)  
+    - Feasibility Studies  
+    - Structural Engineering  
+    - Geotechnical Engineering  
+    - Hydraulics & Water Systems  
+    - Tenders & Bids  
+    - AI Agents (Coordinator launch)  
+    - Reports & Exports  
+  - Each discipline opens a **full dedicated page** with:  
+    - Drag-and-drop file upload area  
+    - Structured input forms (e.g., rainfall intensity, catchment area, soil parameters)  
+    - “Send to Coordinator” button  
+    - Draft output viewer + rich-text editor for review  
+    - Approve / Request Amendment buttons  
+
+#### 4.2 AI Agent Architecture (9 agents total)  
+- **Single front-facing Coordinator Agent** (always visible):  
+  - Receives all user requests.  
+  - Routes to the correct specialist(s).  
+  - Validates cross-discipline consistency (e.g., hydraulics rainfall → geotech saturation → structural loads → Gantt update).  
+  - Returns consolidated results to the originating page and updates Project Overview.  
+
+- **8 Backend Specialist Agents** (hidden from users):  
+  1. Feasibility Study Agent  
+  2. Structural Analysis Agent  
+  3. Geotechnical Engineering Agent  
+  4. Hydraulics & Fluid Dynamics Agent  
+  5. Hydrology & Water Resources Agent  
+  6. Project Management & Scheduling Agent (Gantt, resources, critical path)  
+  7. Tender & Procurement Agent (BOQ, specs, evaluation matrices)  
+  8. Report Compilation Agent (assembles branded Word/Excel/PDF)  
+
+#### 4.3 Data Flow & Inter-Page Connectivity  
+1. User uploads data (rainfall, borehole logs, drawings) on any discipline page → saved to central project database.  
+2. Coordinator Agent triggered (manual or automatic).  
+3. Specialist agent(s) process data → output stored as draft.  
+4. Coordinator checks for impacts on other disciplines and Project Overview / Gantt.  
+5. User reviews and approves on the originating page.  
+6. Approved data automatically refreshes:  
+   - Project Overview summary  
+   - Gantt chart (Project Management page)  
+   - Any dependent discipline pages  
+7. Final export via Report Compilation Agent (Word .docx with NPI letterhead, Excel .xlsx for calculations/BOQ/Gantt data, PDF with embedded charts).
+
+#### 4.4 Project Creation & Management  
+- 5-step wizard: basic info → upload site data → select disciplines → assign team → auto-generate initial Gantt.  
+- Project Management page: drag-and-drop Gantt editor, resource allocation, risk register.  
+- All changes logged with user + timestamp.
+
+#### 4.5 Outputs & Exports  
+- Every page and every agent output has one-click “Export” → Word / Excel / PDF.  
+- All documents use NPI branding, revision numbering, table of contents, and signature placeholders.  
+- Gantt charts exported as embedded images (PDF) or editable data (Excel).
+
+### 5. Non-Functional Requirements  
+- **Performance**: Coordinator response < 8 seconds; specialist processing < 2 minutes for typical tasks.  
+- **Security**: Role-based access, per-project data isolation, full audit trail.  
+- **Usability**: Mobile-responsive (site uploads), clean NPI blue/grey design, no more than 2 clicks to any discipline page.  
+- **Scalability**: Support 50+ concurrent NPI users and hundreds of active projects.  
+- **Reliability**: 99.5 % uptime; all data backed up daily.
+
+### 6. Technical Architecture & Infrastructure  
+- **WebApp Shell**: Modern web framework (to be chosen by dev team) with secure backend database and file storage.  
+- **AI Models**: All 9 agents fine-tuned from **Qwen3-32B** (or equivalent 32B STEM-strong model) using QLoRA.  
+- **Training**: One-time on Vast.ai using 4× RTX 4090 cluster (or 2–4× A100 40 GB).  
+- **Hosting (low-cost)**:  
+  - Coordinator: Always-on single A100/4090 instance (Vast.ai or RunPod, ~$200–450/month).  
+  - Specialists: On-demand / serverless (pay-per-use, auto-shutdown).  
+  - Webapp → single secure API endpoint that talks only to Coordinator.  
+- **Data Layer**: Central PostgreSQL (or equivalent) + object storage for uploads and generated files.
+
+### 7. Phasing & Implementation Roadmap  
+**Phase 1 (Build Shell First – 4–6 weeks)**  
+- UI/UX as described, database, project creation, navigation, stub API for Coordinator.  
+- Manual upload/review/export workflows (no live AI yet).  
+
+**Phase 2 (Integrate AI – 3–4 weeks)**  
+- Deploy trained Coordinator + specialists.  
+- Connect data flows and cross-page updates.  
+
+**Phase 3 (Polish & Rollout)**  
+- User training, permissions matrix, final testing with real NPI projects.  
+
+### 8. Assumptions & Dependencies  
+- NPI provides existing feasibility agent outputs and past reports for fine-tuning datasets.  
+- Access to Vast.ai / RunPod accounts for training and hosting.  
+- Dev team will implement the web shell; AI training will be handled separately (or with external assistance).  
+- All final deliverables remain in Word/Excel/PDF – no other formats required.
+
+### 9. Success Metrics  
+- 80 % of NPI staff use the platform daily within 3 months of launch.  
+- Average time to produce a full discipline report reduced by at least 60 %.  
+- Zero critical data-loss incidents.  
+- Positive internal feedback on intuitiveness and cleanliness of interface.
+
+This PRD gives your development team and AI training partners a complete, unambiguous blueprint. It can be handed over immediately.  
+
+If you need any section expanded (detailed wireframes, sample input fields per page, permission matrix, or cost breakdown), just let me know and I will update Version 1.1 instantly. Ready to move to the next step – shell build or training dataset template?
