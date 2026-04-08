@@ -38,6 +38,7 @@ def project_overview_page():
             "geotechnical": "Geotechnical Engineering",
             "hydraulics": "Hydraulics & Water Systems",
             "tenders": "Tenders & Bids",
+            "budget": "Budget & Costs",
         }
         for key, label in labels.items():
             disc = project["disciplines"][key]

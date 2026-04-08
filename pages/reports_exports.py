@@ -23,6 +23,7 @@ def reports_exports_page():
         "geotechnical": "Geotechnical Investigation",
         "hydraulics": "Hydraulics & Water Systems",
         "tenders": "Tender Package",
+        "budget": "Budget & Cost Report",
     }
 
     for key, label in labels.items():

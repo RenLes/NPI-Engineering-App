@@ -19,6 +19,7 @@ DISCIPLINE_KEYS = [
     "geotechnical",
     "hydraulics",
     "tenders",
+    "budget",
 ]
 
 
@@ -78,6 +79,13 @@ def _seed_projects():
                     "status": "Not Started",
                     "approved": False,
                 },
+                "budget": {
+                    "inputs": {"tender_total": "$285,450", "labour_hours": "334"},
+                    "files": [],
+                    "draft": "",
+                    "status": "Estimate Ready",
+                    "approved": False,
+                },
             },
             "tasks": [
                 {"name": "Site Survey Review", "discipline": "Feasibility", "start": _date(-14), "end": _date(-7), "status": "Complete", "assignee": "Sarah Chen"},
@@ -123,6 +131,7 @@ def _seed_projects():
                 "geotechnical": {"inputs": {}, "files": [], "draft": "", "status": "Not Started", "approved": False},
                 "hydraulics": {"inputs": {}, "files": [], "draft": "", "status": "Not Started", "approved": False},
                 "tenders": {"inputs": {}, "files": [], "draft": "", "status": "Not Started", "approved": False},
+                "budget": {"inputs": {}, "files": [], "draft": "", "status": "Not Started", "approved": False},
             },
             "tasks": [
                 {"name": "Topographic Survey Review", "discipline": "Feasibility", "start": _date(-5), "end": _date(5), "status": "In Progress", "assignee": "David Kim"},

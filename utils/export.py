@@ -73,9 +73,32 @@ def export_excel(title: str, dataframes: dict[str, pd.DataFrame]) -> io.BytesIO:
     return buf
 
 
+def _sanitize_pdf_text(text: str) -> str:
+    """Replace Unicode characters unsupported by built-in PDF fonts."""
+    replacements = {
+        "\u2013": "-",   # en dash
+        "\u2014": "-",   # em dash
+        "\u2018": "'",   # left single quote
+        "\u2019": "'",   # right single quote
+        "\u201c": '"',   # left double quote
+        "\u201d": '"',   # right double quote
+        "\u2022": "*",   # bullet
+        "\u2026": "...", # ellipsis
+        "\u00b2": "2",   # superscript 2
+        "\u00b3": "3",   # superscript 3
+        "\u00b0": "deg", # degree
+    }
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    return text
+
+
 def export_pdf(title: str, sections: list[dict]) -> io.BytesIO:
     """Generate a simple branded PDF. sections = [{"heading": str, "body": str}, ...]"""
     from fpdf import FPDF
+
+    title = _sanitize_pdf_text(title)
+    sections = [{"heading": _sanitize_pdf_text(s.get("heading", "")), "body": _sanitize_pdf_text(s.get("body", ""))} for s in sections]
 
     pdf = FPDF()
     pdf.add_page()

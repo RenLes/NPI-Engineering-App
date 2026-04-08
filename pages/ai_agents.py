@@ -67,8 +67,13 @@ def ai_agents_page():
     | Hydrology & Water Resources Agent | Rainfall analysis, flood modelling | Phase 2 |
     | Project Management Agent | Gantt updates, critical path, resource allocation | Phase 2 |
     | Tender & Procurement Agent | BOQ generation, spec writing, evaluation matrices | Phase 2 |
+    | **Budget Agent** | **Tender cost estimation, project budget tracking, NPI financials, cash flow forecasting** | **Phase 2** |
     | Report Compilation Agent | Branded Word/Excel/PDF assembly | Phase 2 |
     """)
+
+    st.info("**API Architecture:** Coordinator runs on **Groq** (ultra-fast routing). "
+            "Complex reasoning for PM and Budget uses **Grok-3 Mini** (xAI). "
+            "All domain specialists run locally via **Ollama** with fine-tuned LoRA adapters.")
 
     st.divider()
 
