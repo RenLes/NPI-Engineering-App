@@ -22,6 +22,7 @@ def reports_exports_page():
         "structural": "Structural Engineering",
         "geotechnical": "Geotechnical Investigation",
         "hydraulics": "Hydraulics & Water Systems",
+        "roads": "Roads & Pavements Report",
         "tenders": "Tender Package",
         "budget": "Budget & Cost Report",
     }

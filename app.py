@@ -98,6 +98,7 @@ from pages.feasibility import feasibility_page
 from pages.structural import structural_page
 from pages.geotechnical import geotechnical_page
 from pages.hydraulics import hydraulics_page
+from pages.roads import roads_page
 from pages.tenders import tenders_page
 from pages.budget import budget_page
 from pages.ai_agents import ai_agents_page
@@ -124,6 +125,7 @@ else:
             st.Page(structural_page, title="Structural Engineering", icon="🏗️"),
             st.Page(geotechnical_page, title="Geotechnical Engineering", icon="⛏️"),
             st.Page(hydraulics_page, title="Hydraulics & Water Systems", icon="💧"),
+            st.Page(roads_page, title="Roads & Pavements", icon="🛣️"),
             st.Page(tenders_page, title="Tenders & Bids", icon="📋"),
             st.Page(budget_page, title="Budget & Costs", icon="💰"),
             st.Page(ai_agents_page, title="AI Coordinator", icon="🤖"),

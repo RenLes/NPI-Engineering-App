@@ -37,6 +37,7 @@ def project_overview_page():
             "structural": "Structural Engineering",
             "geotechnical": "Geotechnical Engineering",
             "hydraulics": "Hydraulics & Water Systems",
+            "roads": "Roads & Pavements",
             "tenders": "Tenders & Bids",
             "budget": "Budget & Costs",
         }

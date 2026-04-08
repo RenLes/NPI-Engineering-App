@@ -18,6 +18,7 @@ DISCIPLINE_KEYS = [
     "structural",
     "geotechnical",
     "hydraulics",
+    "roads",
     "tenders",
     "budget",
 ]
@@ -70,6 +71,13 @@ def _seed_projects():
                     "files": ["Rainfall_IFD_Data.xlsx"],
                     "draft": "",
                     "status": "Data Uploaded",
+                    "approved": False,
+                },
+                "roads": {
+                    "inputs": {},
+                    "files": [],
+                    "draft": "",
+                    "status": "Not Started",
                     "approved": False,
                 },
                 "tenders": {
@@ -130,6 +138,7 @@ def _seed_projects():
                 "structural": {"inputs": {}, "files": [], "draft": "", "status": "Not Started", "approved": False},
                 "geotechnical": {"inputs": {}, "files": [], "draft": "", "status": "Not Started", "approved": False},
                 "hydraulics": {"inputs": {}, "files": [], "draft": "", "status": "Not Started", "approved": False},
+                "roads": {"inputs": {}, "files": [], "draft": "", "status": "Not Started", "approved": False},
                 "tenders": {"inputs": {}, "files": [], "draft": "", "status": "Not Started", "approved": False},
                 "budget": {"inputs": {}, "files": [], "draft": "", "status": "Not Started", "approved": False},
             },
