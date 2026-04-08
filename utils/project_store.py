@@ -175,7 +175,13 @@ class ProjectStore:
         return list(self.projects.values())
 
     def get_project(self, project_id: str) -> dict | None:
-        return self.projects.get(project_id)
+        proj = self.projects.get(project_id)
+        if proj:
+            # Backfill any disciplines added after project creation
+            for key in DISCIPLINE_KEYS:
+                if key not in proj["disciplines"]:
+                    proj["disciplines"][key] = {"inputs": {}, "files": [], "draft": "", "status": "Not Started", "approved": False}
+        return proj
 
     def create_project(self, name, client, location, description, team, selected_disciplines) -> dict:
         pid = str(uuid.uuid4())

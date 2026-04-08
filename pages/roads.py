@@ -11,6 +11,8 @@ def roads_page():
         st.error("Project not found.")
         return
 
+    if "roads" not in project["disciplines"]:
+        project["disciplines"]["roads"] = {"inputs": {}, "files": [], "draft": "", "status": "Not Started", "approved": False}
     disc = project["disciplines"]["roads"]
     page_title("Roads & Pavements", f"{project['name']} - Sealed and unsealed road design")
 
